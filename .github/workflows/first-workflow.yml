@@ -1,16 +1,29 @@
-name: First Flow
+name: Docker Build Test
 
 on:
   push:
-    branches: 
+    branches:
       - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  hello_world:
+  docker_build_and_run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Hello World Action
-        run: echo "Hello, World!"
+      - name: Build Docker image
+        run: docker build --load -t github-actions-docker-demo:latest .
+
+      - name: Run Docker container
+        run: docker run --rm github-actions-docker-demo:latest
+
+      - name: Test Docker container output
+        run: |
+          output="$(docker run --rm github-actions-docker-demo:latest)"
+          echo "$output"
+          test "$output" = "Hello from Docker inside GitHub Actions"
