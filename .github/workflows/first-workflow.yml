@@ -3,11 +3,14 @@ name: First Flow
 on:
   push:
     branches: 
-      -main 
+      - main
 
 jobs:
   hello_world:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Hello World Action
         run: echo "Hello, World!"
