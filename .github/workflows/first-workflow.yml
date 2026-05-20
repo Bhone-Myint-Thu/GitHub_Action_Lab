@@ -1,0 +1,13 @@
+name: First Flow
+
+on:
+  push:
+    branches: 
+      -main 
+
+jobs:
+  hello_world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello World Action
+        run: echo "Hello, World!"
